@@ -25,6 +25,13 @@
             installPhase = ''
               mkdir -p $out/nvim-astro
               cp -r . $out/nvim-astro/
+
+              # Redirect lazy-lock.json to writable data dir so lazy.nvim
+              # doesn't try to write into the read-only Nix store
+              substituteInPlace $out/nvim-astro/lua/lazy_setup.lua \
+                --replace-fail \
+                  'ui = { backdrop = 100 },' \
+                  'ui = { backdrop = 100 }, lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",'
             '';
           };
 
