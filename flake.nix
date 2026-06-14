@@ -36,10 +36,37 @@
           };
 
           runtimeDeps = with pkgs; [
+            # Core nvim requirements
             git
             gcc
             ripgrep
             fd
+            curl
+            unzip
+            tar
+            gzip
+
+            # LSP servers
+            nixd
+            lua-language-server
+
+            # Formatters
+            alejandra        # Nix
+            shfmt            # shell
+            stylua           # Lua
+            prettier         # markdown / JS
+            clang-tools      # C++ (clangd + clang-format)
+
+            # Linters
+            statix           # Nix
+            deadnix          # Nix dead-code
+            shellcheck       # shell
+            hadolint         # Dockerfile
+            markdownlint-cli # Markdown
+
+            # Python toolchain (LSP + linting via Mason; debugpy via Mason)
+            python3
+            ruff
           ];
 
           neovim-astro = pkgs.symlinkJoin {
