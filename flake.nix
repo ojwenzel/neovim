@@ -43,7 +43,7 @@
             fd
             curl
             unzip
-            tar
+            gnutar
             gzip
 
             # LSP servers
