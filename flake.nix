@@ -32,6 +32,11 @@
                 --replace-fail \
                   'ui = { backdrop = 100 },' \
                   'ui = { backdrop = 100 }, lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",'
+
+              # Remove GitHub Copilot (auth DB can't be written to the read-only
+              # Nix store, and tokens don't persist anyway)
+              rm $out/nvim-astro/lua/plugins/copilot-chat.lua
+              sed -i '/blink-copilot/d' $out/nvim-astro/lua/community.lua
             '';
           };
 
@@ -64,8 +69,9 @@
             hadolint         # Dockerfile
             markdownlint-cli # Markdown
 
-            # Python toolchain (LSP + linting via Mason; debugpy via Mason)
-            python3
+            # Python toolchain — prepended to PATH so Nix Python (with pip) wins
+            # over the system Python, allowing Mason to install debugpy/yamllint/etc.
+            (python3.withPackages (ps: with ps; [ ps.pip ]))
             ruff
           ];
 
@@ -77,7 +83,7 @@
               wrapProgram $out/bin/nvim \
                 --set NVIM_APPNAME "nvim-astro" \
                 --set XDG_CONFIG_HOME "${configDir}" \
-                --suffix PATH : "${pkgs.lib.makeBinPath runtimeDeps}" \
+                --prefix PATH : "${pkgs.lib.makeBinPath runtimeDeps}" \
                 --run 'datadir="$HOME/.local/share/nvim-astro"; lockfile="$datadir/lazy-lock.json"; if [ ! -f "$lockfile" ]; then mkdir -p "$datadir" && cp "${configDir}/nvim-astro/lazy-lock.json" "$lockfile" && chmod 644 "$lockfile"; fi'
             '';
             meta.mainProgram = "nvim";
