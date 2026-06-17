@@ -44,6 +44,7 @@
             # Core nvim requirements
             git
             gcc
+            tree-sitter  # prevents Mason from downloading a glibc-incompatible binary
             ripgrep
             fd
             curl
