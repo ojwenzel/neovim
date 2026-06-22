@@ -3,11 +3,11 @@
     "astronvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1781593885,
-        "narHash": "sha256-/sCC+JZL0DJ4BnvWlJ+XsWKwb2CIFOHhOZBcgldICjY=",
+        "lastModified": 1782123123,
+        "narHash": "sha256-6Dnkza9YJrlykGymNpYRQEvC0HV65Tm1dXaAc8QW8yo=",
         "owner": "ojwenzel",
         "repo": "astronvim_config",
-        "rev": "2ade458d3077fb54c838ae97917a172ca7e0b90a",
+        "rev": "b1cd2a11a6223fcf72062263f322cb9dfad2c4bc",
         "type": "github"
       },
       "original": {
