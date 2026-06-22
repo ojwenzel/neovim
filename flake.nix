@@ -42,6 +42,7 @@
 
           runtimeDeps = with pkgs; [
             # Core nvim requirements
+            nodejs  # required for markdown-preview.nvim app build step
             git
             gcc
             tree-sitter  # prevents Mason from downloading a glibc-incompatible binary
