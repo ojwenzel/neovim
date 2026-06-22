@@ -86,7 +86,8 @@
                 --set NVIM_APPNAME "nvim-astro" \
                 --set XDG_CONFIG_HOME "${configDir}" \
                 --prefix PATH : "${pkgs.lib.makeBinPath runtimeDeps}" \
-                --run 'datadir="$HOME/.local/share/nvim-astro"; lockfile="$datadir/lazy-lock.json"; if [ ! -f "$lockfile" ]; then mkdir -p "$datadir" && cp "${configDir}/nvim-astro/lazy-lock.json" "$lockfile" && chmod 644 "$lockfile"; fi'
+                --run 'datadir="$HOME/.local/share/nvim-astro"; lockfile="$datadir/lazy-lock.json"; if [ ! -f "$lockfile" ]; then mkdir -p "$datadir" && cp "${configDir}/nvim-astro/lazy-lock.json" "$lockfile" && chmod 644 "$lockfile"; fi' \
+                --run 'plugdir="$HOME/.local/share/nvim-astro/lazy/markdown-preview.nvim/app"; if [ -d "$plugdir" ] && [ ! -d "$plugdir/node_modules" ]; then (cd "$plugdir" && npm install --no-audit --no-fund --silent 2>/dev/null) || true; fi'
             '';
             meta.mainProgram = "nvim";
           };
